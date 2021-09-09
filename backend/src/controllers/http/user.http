@@ -1,0 +1,26 @@
+## Login user
+POST {{host}}/api/login HTTP/1.1
+content-type: application/json
+
+{
+  "username": "Livia",
+  "password": "password"
+}
+
+### Register user
+POST {{host}}/api/register HTTP/1.1
+content-type: application/json
+
+{
+  "username": "livia",
+  "password": "password",
+}
+
+### Register without short password
+POST {{host}}/api/register HTTP/1.1
+content-type: application/json
+
+{
+  "username": "user3",
+  "password": "p"
+}

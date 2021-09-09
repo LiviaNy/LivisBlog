@@ -1,4 +1,4 @@
-import * as mysql from "mysql";
+import mysql from "mysql";
 import config from "../config";
 
 const pool = mysql.createPool({
@@ -13,11 +13,11 @@ const pool = mysql.createPool({
 export const db = {
   query(query: string, values?: Array<unknown>): Promise<unknown> {
     return new Promise((resolve, reject) => {
-      pool.query(query, values, (err, result, fields) => {
+      pool.query(query, values, (err, results, fields) => {
         if (err) {
           reject(err);
         } else {
-          resolve({ result, fields });
+          resolve({ results, fields });
         }
       });
     });
