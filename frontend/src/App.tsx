@@ -4,11 +4,10 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
 import LoginPage from "./users/pages/login/login";
 import RegisterPage from "./users/pages/register/register";
+import BlogPage from "./blog/pages/blogPage";
+import { backgroundImageUrl } from "./common/setings";
 
 function App() {
-  const backgroundImageUrl =
-    process.env.REACT_APP_FRONTEND_BASEURL +
-    "/backgrounds/backround-livis-blog.jpg";
   const isUserLoggedIn = localStorage.getItem("token") != null;
   return (
     <Router>
@@ -28,6 +27,9 @@ function App() {
             </Route>
             <Route path="/register">
               <RegisterPage />
+            </Route>
+            <Route path="/blog">
+              <BlogPage />
             </Route>
           </Switch>
         </div>

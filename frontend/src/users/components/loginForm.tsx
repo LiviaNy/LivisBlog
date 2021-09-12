@@ -29,7 +29,7 @@ const LoginForm: any = () => {
         throw new Error((loginResponse.parsedBody as ApiError).message);
       const token = (loginResponse.parsedBody as LoginResponse).token;
       localStorage.setItem("token", token);
-      history.push("/frontpage");
+      history.push("/blog");
     } catch (error: any) {
       const errorMessage = error.message || error;
       if (errorMessage.toLowerCase().includes("password")) {
