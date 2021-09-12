@@ -1,5 +1,5 @@
 import { FC, SyntheticEvent } from "react";
-// import "./button.scss";
+import "./button.scss";
 
 type ButtonType = JSX.IntrinsicElements["button"] & {
   title: string;

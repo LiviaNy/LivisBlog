@@ -5,6 +5,7 @@ import Input from "../../common/components/input";
 import { post } from "../../services/apiService";
 import { ApiError } from "../../services/models/apiModels";
 import { LoginResponse } from "../models/loginModels";
+import "./loginForm.scss";
 
 const LoginForm: any = () => {
   const history = useHistory();

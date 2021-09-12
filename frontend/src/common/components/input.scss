@@ -1,0 +1,30 @@
+@import "../colors.scss";
+
+.user-input {
+  height: 80px;
+  width: 90%;
+  margin: 25px 10px;
+}
+
+.user-input input {
+  all: unset;
+  border-bottom: 3px solid $accept-color;
+  width: 100%;
+  font-size: 40px;
+  color: $font-color;
+  border: solid 1px $input-bg-color;
+  background-color: $input-bg-color;
+  border-radius: 10px;
+}
+
+.user-input input:focus {
+  border-bottom: 3px solid $button-bg-color-dark;
+}
+
+.user-input p {
+  position: relative;
+  color: $error-color;
+  height: 10px;
+  margin: 0px;
+  top: -2px;
+}

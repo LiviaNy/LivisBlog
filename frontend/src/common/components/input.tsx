@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
-// import "./input.scss";
+import "./input.scss";
 
 interface InputProps {
   type?: string;
@@ -47,7 +47,7 @@ const Input: FC<InputProps> = ({
         placeholder={placeholder}
         value={text}
       />
-      {errorMessage && <p className="input-error">{errorMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };

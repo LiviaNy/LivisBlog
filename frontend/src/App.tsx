@@ -1,7 +1,8 @@
 import Header from "./common/components/header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import "./App.css";
+import "./App.scss";
+import LoginPage from "./users/pages/login";
 
 function App() {
   const backgroundImageUrl =
@@ -19,7 +20,13 @@ function App() {
         <header className="App-header">
           <Header isLoggedIn={isUserLoggedIn} />
         </header>
-        <div className="main-page"></div>
+        <div className="main-page">
+          <Switch>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+          </Switch>
+        </div>
       </div>
     </Router>
   );
