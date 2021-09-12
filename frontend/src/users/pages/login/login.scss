@@ -1,0 +1,14 @@
+@import "../../../common/colors.scss";
+
+.login-page {
+  background-color: $login-bg-color;
+  width: 60%;
+  min-width: 400x;
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  border-radius: 10px;
+}

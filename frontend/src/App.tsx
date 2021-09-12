@@ -2,7 +2,8 @@ import Header from "./common/components/header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "./App.scss";
-import LoginPage from "./users/pages/login";
+import LoginPage from "./users/pages/login/login";
+import RegisterPage from "./users/pages/register/register";
 
 function App() {
   const backgroundImageUrl =
@@ -24,6 +25,9 @@ function App() {
           <Switch>
             <Route path="/login">
               <LoginPage />
+            </Route>
+            <Route path="/register">
+              <RegisterPage />
             </Route>
           </Switch>
         </div>

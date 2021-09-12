@@ -1,6 +1,6 @@
 import { FC } from "react";
-import Title from "../../common/components/title";
-import LoginForm from "../components/loginForm";
+import Title from "../../../common/components/title";
+import LoginForm from "../../components/loginForm";
 import "./login.scss";
 
 interface LoginPageProps {}
