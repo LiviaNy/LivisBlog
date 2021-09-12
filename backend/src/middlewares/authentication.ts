@@ -22,7 +22,7 @@ export const authenticateRequest = function (
       if (err || !userData)
         throw errorService.unauthorizedError("Invalid token");
       if (userData) {
-        if (!("userId" in userData) || !("kingdomId" in userData))
+        if (!("userId" in userData))
           throw errorService.unauthorizedError("Invalid token");
 
         const userAuthData: UserDetails = {
@@ -41,7 +41,7 @@ export const authenticateRequest = function (
       }
       next();
     });
-  } catch (error:any) {
+  } catch (error) {
     next(new HttpException(error.errorStatus, error.errorMessage));
   }
 };

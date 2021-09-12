@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { authenticateRequest } from "../middlewares/authentication";
 import { userController } from "../controllers";
+import { commentsController } from "../controllers/commentsController";
 
 const router = express.Router();
 
@@ -13,6 +14,7 @@ router.post("/register", userController.addUser);
 
 router.use(authenticateRequest);
 
+router.get("/comment", commentsController.getAll);
 router.put("/comment");
 router.post("/comment");
 router.delete("/comment");
