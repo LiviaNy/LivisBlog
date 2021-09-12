@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import { NavData } from "../../users/models/userModels";
-import "./header.css";
+import "./header.scss";
 
 const Header: FC<any> = ({ isLoggedIn, username }) => {
   const pageTitle: string = username ? username : "";

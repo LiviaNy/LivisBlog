@@ -1,7 +1,6 @@
 import Header from "./common/components/header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import { url } from "inspector";
 
 function App() {
   const backgroundImageUrl =

@@ -19,7 +19,26 @@
   align-items: stretch;
   box-sizing: border-box;
 
-  li{
-      width: 100%;
+  li {
+    width: 100%;
+    list-style: none;
+    font-weight: 800;
+  }
+
+  a {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    font-size: 150%;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 20px;
+    &.active,
+    &:hover {
+      color: wheat;
+      background-color: rgb(173, 172, 230);
+    }
   }
 }
