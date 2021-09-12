@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from "./common/components/header";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css";
+import { url } from "inspector";
 
 function App() {
+  const backgroundImageUrl =
+    process.env.REACT_APP_FRONTEND_BASEURL +
+    "/backgrounds/backround-livis-blog.jpg";
+  const isUserLoggedIn = localStorage.getItem("token") != null;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div
+        className="App"
+        style={{
+          background: `url(${backgroundImageUrl}) repeat center center fixed`,
+        }}
+      >
+        <header className="App-header">
+          <Header isLoggedIn={isUserLoggedIn} />
+        </header>
+        <div className="main-page"></div>
+      </div>
+    </Router>
   );
 }
 
