@@ -2,6 +2,9 @@ import { SyntheticEvent, useState } from "react";
 import { useHistory } from "react-router";
 import Button from "../../common/components/button";
 import Input from "../../common/components/input";
+import { post } from "../../services/apiService";
+import { ApiError } from "../../services/models/apiModels";
+import { LoginResponse } from "../models/loginModels";
 
 const LoginForm: any = () => {
   const history = useHistory();
@@ -13,28 +16,30 @@ const LoginForm: any = () => {
 
   const login = async (e: SyntheticEvent) => {
     e.preventDefault();
-  };
 
-  if (!username || password.length < 8) {
-    setErrorMessage("Username and password are required.");
-    return;
-  }
-
-  try {
-    //apiCall
-    const token = "";
-    localStorage.setItem("token", token);
-    history.push("/frontpage");
-  } catch (error: any) {
-    const errorMessage = error.message || error;
-    if (errorMessage.toLowerCase().includes("password")) {
-      setPasswordError(errorMessage);
-    } else if (errorMessage.toLowerCase().includes("username")) {
-      setUserError(errorMessage);
-    } else {
-      setErrorMessage(errorMessage);
+    if (!username || password.length < 8) {
+      setErrorMessage("Username and password are required.");
+      return;
     }
-  }
+
+    try {
+      const loginResponse = await post("/login", { username, password }, false);
+      if (!loginResponse.response.ok)
+        throw new Error((loginResponse.parsedBody as ApiError).message);
+      const token = (loginResponse.parsedBody as LoginResponse).token;
+      localStorage.setItem("token", token);
+      history.push("/frontpage");
+    } catch (error: any) {
+      const errorMessage = error.message || error;
+      if (errorMessage.toLowerCase().includes("password")) {
+        setPasswordError(errorMessage);
+      } else if (errorMessage.toLowerCase().includes("username")) {
+        setUserError(errorMessage);
+      } else {
+        setErrorMessage(errorMessage);
+      }
+    }
+  };
 
   const validateUsername = {
     validate: (input: string): boolean => !!input,

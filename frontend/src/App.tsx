@@ -1,5 +1,6 @@
 import Header from "./common/components/header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import "./App.css";
 
 function App() {
