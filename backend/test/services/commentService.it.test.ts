@@ -1,5 +1,5 @@
 import { commentsService } from "../../src/services/commentsService";
-import { Comments } from "../../src/models/commentsModels";
+import { Comments, commentTypes } from "../../src/models/commentsModels";
 import {
   mockHospitalComment,
   mockNurseryComment,
@@ -34,6 +34,42 @@ describe("comment service IT tests", () => {
 
       expect(result).not.toBeNull();
       expect(Array.isArray(result.comments)).toBeTruthy();
+    });
+  });
+
+  describe("post new comment", () => {
+    it("returns the new comments data", async () => {
+      Comments.create = jest.fn(() =>
+        Promise.resolve({ results: { insertId: 1 }, fields: [] })
+      );
+
+      const result = await commentsService.createComment(
+        1,
+        commentTypes.room,
+        "valami title",
+        "valami content"
+      );
+
+      expect(result).not.toBeUndefined();
+      expect(result.id).toBe(1);
+    });
+  });
+
+  describe("modify comment", () => {
+    it("returns the data of modified comment", async () => {
+      Comments.modifyContent = jest.fn(() =>
+        Promise.resolve({ results: { insertId: 1 }, fields: [] })
+      );
+
+      const result = await commentsService.modifyComment(
+        commentTypes.nursery,
+        "valami title",
+        "valami content",
+        1
+      );
+
+      expect(result).not.toBeNull();
+      expect(result.type).toBe(commentTypes.nursery);
     });
   });
 });
