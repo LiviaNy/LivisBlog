@@ -1,4 +1,4 @@
-import { blogMenuImagePath, blogPath } from "../../common/setings";
+import { blogImageIconPath, blogPath } from "../../common/setings";
 import { Label, MenuElement } from "../models/blogMenuModel";
 import MenuItem from "./menuItem";
 import "./blogMenu.scss";
@@ -14,17 +14,17 @@ const BlogMenu = () => {
     {
       menuName: label.hospital,
       path: `${blogPath}/hospital`,
-      iconPath: `${blogMenuImagePath}/hospital.png`,
+      iconPath: `${blogImageIconPath}/hospital.png`,
     },
     {
       menuName: label.room,
       path: `${blogPath}/room`,
-      iconPath: `${blogMenuImagePath}/room.png`,
+      iconPath: `${blogImageIconPath}/room.png`,
     },
     {
       menuName: label.nursery,
       path: `${blogPath}/nursery`,
-      iconPath: `${blogMenuImagePath}/nursery.jpg`,
+      iconPath: `${blogImageIconPath}/nursery.jpg`,
     },
   ];
 

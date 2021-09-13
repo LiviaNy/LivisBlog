@@ -20,3 +20,8 @@ export type Action = {
   user: User;
   password?: string;
 };
+
+export interface StoreInterface {
+  username: string;
+  userId: number;
+}

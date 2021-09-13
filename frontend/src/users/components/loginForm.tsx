@@ -1,5 +1,6 @@
 import { SyntheticEvent, useState } from "react";
 import { useHistory } from "react-router";
+
 import Button from "../../common/components/button";
 import Input from "../../common/components/input";
 import { post } from "../../services/apiService";
@@ -17,7 +18,6 @@ const LoginForm: any = () => {
 
   const login = async (e: SyntheticEvent) => {
     e.preventDefault();
-
     if (!username || password.length < 8) {
       setErrorMessage("Username and password are required.");
       return;

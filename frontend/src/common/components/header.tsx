@@ -1,13 +1,18 @@
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { NavLink, useHistory } from "react-router-dom";
 import { NavData } from "../../users/models/userModels";
 import "./header.scss";
 
-const Header: FC<any> = ({ isLoggedIn, username }) => {
-  const pageTitle: string = username ? username : "";
+const Header: FC<any> = (isLoggedIn) => {
+  const pageTitle: string = useSelector<any, any>(
+    (state) => state.userReducer.username
+  );
+  const history = useHistory();
 
   const logout = () => {
     localStorage.removeItem("token");
+    history.push("/login");
   };
 
   const headerNavLinks: NavData[] = [
@@ -26,7 +31,7 @@ const Header: FC<any> = ({ isLoggedIn, username }) => {
   return (
     <div className="header">
       <h1 className="header-title">
-        <NavLink to="/">{pageTitle}</NavLink>
+        <NavLink to="/blog">{pageTitle}</NavLink>
       </h1>
       <ul className="header-navigation">
         {showMenu.map((x, index) => (
