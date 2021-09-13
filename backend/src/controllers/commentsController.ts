@@ -1,6 +1,7 @@
 import { create } from "domain";
 import { Request, Response, NextFunction } from "express";
 import HttpException from "../exceptions/httpException";
+import { Comments } from "../models/commentsModels";
 import { commentsService } from "../services/commentsService";
 
 export const commentsController = {
@@ -58,9 +59,14 @@ export const commentsController = {
     res.status(200).json(changedComment);
   },
 
-  async delete(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> {},
+  async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const type = req.body.type;
+    const commentId = Number(req.params.commentId);
+    const deleteComment = await commentsService
+      .deleteComment(type, commentId)
+      .catch((error: any) => {
+        next(new HttpException(error.errorStatus, error.errorMessage.message));
+      });
+    if (deleteComment) res.status(200).json(deleteComment);
+  },
 };

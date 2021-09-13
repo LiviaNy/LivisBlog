@@ -28,6 +28,15 @@ export interface SqlCreateResult {
   fields: unknown[];
 }
 
+export interface SqlDeleteResult {
+  results: { affectedRows: number };
+  fields: unknown[];
+}
+
+export interface DeleteStatus {
+  status: "successful";
+}
+
 export const Comments = {
   getCommentsFromHospital: async (userId: number): Promise<commentParams[]> => {
     const query = `SELECT * FROM hospital WHERE userid = ?;`;
@@ -85,12 +94,23 @@ export const Comments = {
     newContent: string,
     commentId: number
   ): Promise<SqlCreateResult> => {
-    const query = `UPDATE ${type} SET title = ?, content = ? WHERE id = ?`;
+    const query = `UPDATE ${type} SET title = ?, content = ? WHERE id = ?;`;
     const updatedComment = await ((db.query(query, [
       title,
       newContent,
       commentId,
     ]) as unknown) as SqlCreateResult);
     return updatedComment;
+  },
+
+  deleteComment: async (
+    type: commentTypes,
+    commentId: number
+  ): Promise<SqlDeleteResult> => {
+    const query = `DELETE FROM ${type} WHERE id = ?;`;
+    const deleteComment = await ((db.query(query, [
+      commentId,
+    ]) as unknown) as SqlDeleteResult);
+    return deleteComment;
   },
 };

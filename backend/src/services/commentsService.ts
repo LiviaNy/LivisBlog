@@ -3,6 +3,7 @@ import {
   commentParams,
   Comments,
   commentTypes,
+  DeleteStatus,
   getAllServiceResult,
 } from "../models/commentsModels";
 
@@ -75,9 +76,23 @@ const modifyComment = async (
   };
 };
 
+const deleteComment = async (
+  type: commentTypes,
+  commentId: number
+): Promise<DeleteStatus> => {
+  if (!type) throw errorService.badRequestError("Missintparameter(s): type");
+  if (!commentId)
+    throw errorService.badRequestError("Missintparameter(s): commentId");
+  const deleteComment = await Comments.deleteComment(type, commentId);
+  if (deleteComment.results.affectedRows === 0)
+    throw errorService.badRequestError("Comment not found");
+  return { status: "successful" };
+};
+
 export const commentsService = {
   getAllComments,
   getCommentById,
   createComment,
   modifyComment,
+  deleteComment,
 };
