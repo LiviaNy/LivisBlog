@@ -51,6 +51,7 @@ const createComment = async (
     throw errorService.badRequestError("Missintparameter(s): content");
   return {
     id: (await Comments.create(userId, type, title, content)).results.insertId,
+    type,
     title,
     content,
   };
@@ -71,6 +72,7 @@ const modifyComment = async (
   await Comments.modifyContent(type, title, newContent, commentId);
   return {
     id: commentId,
+    type,
     title,
     content: newContent,
   };

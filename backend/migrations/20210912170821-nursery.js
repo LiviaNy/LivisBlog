@@ -21,6 +21,7 @@ exports.up = function (db, callback) {
       id: { type: "int", primaryKey: true, autoIncrement: true },
       title: { type: "string", notNull: true },
       content: { type: "string", notNull: true },
+      type: { type: "string", defaultValue: "nursery", notNull: true },
 
       userid: {
         type: "int",

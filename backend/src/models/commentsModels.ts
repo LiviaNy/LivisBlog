@@ -14,6 +14,7 @@ export interface SqlResultComments {
 
 export interface commentParams {
   id: number;
+  type: commentTypes;
   title: string;
   content: string;
   userid?: number;
