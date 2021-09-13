@@ -1,14 +1,12 @@
-import { create } from "domain";
 import { Request, Response, NextFunction } from "express";
 import HttpException from "../exceptions/httpException";
-import { Comments } from "../models/commentsModels";
 import { commentsService } from "../services/commentsService";
 
 export const commentsController = {
   async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
     const userId = req.user.userId;
     const comments = await commentsService
-      .getAllComments(userId)
+      .getAllComments({ userId })
       .catch((error: any) => {
         next(new HttpException(error.errorStatus, error.errorMessage.message));
       });
@@ -26,7 +24,7 @@ export const commentsController = {
     const userId = req.user.userId;
     const type = req.body.type;
     const comment = await commentsService
-      .getCommentById(commentId, type, userId)
+      .getCommentById({ commentId, type, userId })
       .catch((error: any) => {
         next(new HttpException(error.errorStatus, error.errorMessage.message));
       });
@@ -39,7 +37,7 @@ export const commentsController = {
     const title = req.body.title;
     const content = req.body.content;
     const newComment = await commentsService
-      .createComment(userId, type, title, content)
+      .createComment({ userId, type, title, content })
       .catch((error) => {
         next(new HttpException(error.errorStatus, error.errorMessage.message));
       });
@@ -52,7 +50,7 @@ export const commentsController = {
     const newContent = req.body.content;
     const commentId = Number(req.params.commentId);
     const changedComment = await commentsService
-      .modifyComment(type, title, newContent, commentId)
+      .modifyComment({ type, title, newContent, commentId })
       .catch((error: any) => {
         next(new HttpException(error.errorStatus, error.errorMessage.message));
       });
@@ -63,7 +61,7 @@ export const commentsController = {
     const type = req.body.type;
     const commentId = Number(req.params.commentId);
     const deleteComment = await commentsService
-      .deleteComment(type, commentId)
+      .deleteComment({ type, commentId })
       .catch((error: any) => {
         next(new HttpException(error.errorStatus, error.errorMessage.message));
       });

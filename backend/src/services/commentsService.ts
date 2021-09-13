@@ -1,75 +1,83 @@
 import { errorService } from ".";
 import {
-  commentParams,
+  CommentParams,
   Comments,
   commentTypes,
+  CreateRequest,
   DeleteStatus,
-  getAllServiceResult,
+  GetAllRequest,
+  GetAllServiceResult,
+  GetByIdModelRequest,
+  GetByIdRequest,
+  ModifyRequest,
 } from "../models/commentsModels";
 
-const fillCommentValues = (comment: commentParams): commentParams => {
+const fillCommentValues = (comment: CommentParams): CommentParams => {
   delete comment.userid;
   return comment;
 };
 
-const getAllComments = async (userId: number): Promise<getAllServiceResult> => {
-  const hospitalComments: commentParams[] = (
-    await Comments.getCommentsFromHospital(userId)
+const getAllComments = async ({
+  userId,
+}: GetAllRequest): Promise<GetAllServiceResult> => {
+  const hospitalComments: CommentParams[] = (
+    await Comments.getCommentsFromHospital({ userId })
   ).map(fillCommentValues);
-  const rooomCommenst = (await Comments.getCommentsFromRoom(userId)).map(
+  const rooomCommenst = (await Comments.getCommentsFromRoom({ userId })).map(
     fillCommentValues
   );
-  const nurseryComments = (await Comments.getCommentsFromNursery(userId)).map(
-    fillCommentValues
-  );
+  const nurseryComments = (
+    await Comments.getCommentsFromNursery({ userId })
+  ).map(fillCommentValues);
   return {
     comments: [...hospitalComments, ...rooomCommenst, ...nurseryComments],
   };
 };
 
-const getCommentById = async (
-  commentId: number,
-  type: commentTypes,
-  userId: number
-): Promise<commentParams> => {
-  const comment = await Comments.getById(commentId, type);
+const getCommentById = async ({
+  commentId,
+  type,
+  userId,
+}: GetByIdRequest): Promise<CommentParams> => {
+  const comment = await Comments.getById({ commentId, type });
   if (!comment[0]) throw errorService.notFoundError("Id not found.");
   if (comment[0].userid !== userId)
     throw errorService.forbiddenError("Forbidden action.");
   return comment[0];
 };
 
-const createComment = async (
-  userId: number,
-  type: commentTypes,
-  title: string,
-  content: string
-): Promise<commentParams> => {
+const createComment = async ({
+  userId,
+  type,
+  title,
+  content,
+}: CreateRequest): Promise<CommentParams> => {
   if (!type) throw errorService.badRequestError("Missintparameter(s): type");
   if (!title) throw errorService.badRequestError("Missintparameter(s): title");
   if (!content)
     throw errorService.badRequestError("Missintparameter(s): content");
   return {
-    id: (await Comments.create(userId, type, title, content)).results.insertId,
+    id: (await Comments.create({ userId, type, title, content })).results
+      .insertId,
     type,
     title,
     content,
   };
 };
 
-const modifyComment = async (
-  type: commentTypes,
-  title: string,
-  newContent: string,
-  commentId: number
-): Promise<commentParams> => {
+const modifyComment = async ({
+  type,
+  title,
+  newContent,
+  commentId,
+}: ModifyRequest): Promise<CommentParams> => {
   if (!type) throw errorService.badRequestError("Missintparameter(s): type");
   if (!title) throw errorService.badRequestError("Missintparameter(s): title");
   if (!newContent)
     throw errorService.badRequestError("Missintparameter(s): content");
   if (!commentId)
     throw errorService.badRequestError("Missintparameter(s): commentId");
-  await Comments.modifyContent(type, title, newContent, commentId);
+  await Comments.modifyContent({ type, title, newContent, commentId });
   return {
     id: commentId,
     type,
@@ -78,14 +86,14 @@ const modifyComment = async (
   };
 };
 
-const deleteComment = async (
-  type: commentTypes,
-  commentId: number
-): Promise<DeleteStatus> => {
+const deleteComment = async ({
+  type,
+  commentId,
+}: GetByIdModelRequest): Promise<DeleteStatus> => {
   if (!type) throw errorService.badRequestError("Missintparameter(s): type");
   if (!commentId)
     throw errorService.badRequestError("Missintparameter(s): commentId");
-  const deleteComment = await Comments.deleteComment(type, commentId);
+  const deleteComment = await Comments.deleteComment({ type, commentId });
   if (deleteComment.results.affectedRows === 0)
     throw errorService.badRequestError("Comment not found");
   return { status: "successful" };

@@ -1,5 +1,4 @@
 import { db } from "../db/connection";
-import { errorService } from "../services";
 
 export enum commentTypes {
   "hospital" = "hospital",
@@ -12,7 +11,7 @@ export interface SqlResultComments {
   fields: [];
 }
 
-export interface commentParams {
+export interface CommentParams {
   id: number;
   type: commentTypes;
   title: string;
@@ -20,8 +19,8 @@ export interface commentParams {
   userid?: number;
 }
 
-export interface getAllServiceResult {
-  comments: commentParams[];
+export interface GetAllServiceResult {
+  comments: CommentParams[];
 }
 
 export interface SqlCreateResult {
@@ -38,8 +37,39 @@ export interface DeleteStatus {
   status: "successful";
 }
 
+export interface GetAllRequest {
+  userId: number;
+}
+
+export interface GetByIdRequest {
+  commentId: number;
+  type: commentTypes;
+  userId: number;
+}
+
+export interface GetByIdModelRequest {
+  commentId: number;
+  type: commentTypes;
+}
+
+export interface CreateRequest {
+  userId: number;
+  type: commentTypes;
+  title: string;
+  content: string;
+}
+
+export interface ModifyRequest {
+  type: commentTypes;
+  title: string;
+  newContent: string;
+  commentId: number;
+}
+
 export const Comments = {
-  getCommentsFromHospital: async (userId: number): Promise<commentParams[]> => {
+  getCommentsFromHospital: async ({
+    userId,
+  }: GetAllRequest): Promise<CommentParams[]> => {
     const query = `SELECT * FROM hospital WHERE userid = ?;`;
     const comments = await ((db.query(query, [
       userId,
@@ -47,7 +77,9 @@ export const Comments = {
     return comments.results;
   },
 
-  getCommentsFromRoom: async (userId: number): Promise<commentParams[]> => {
+  getCommentsFromRoom: async ({
+    userId,
+  }: GetAllRequest): Promise<CommentParams[]> => {
     const query = `SELECT * FROM room WHERE userid = ?;`;
     const comments = await ((db.query(query, [
       userId,
@@ -55,7 +87,9 @@ export const Comments = {
     return comments.results;
   },
 
-  getCommentsFromNursery: async (userId: number): Promise<commentParams[]> => {
+  getCommentsFromNursery: async ({
+    userId,
+  }: GetAllRequest): Promise<CommentParams[]> => {
     const query = `SELECT * FROM nursery WHERE userid = ?;`;
     const comments = await ((db.query(query, [
       userId,
@@ -63,10 +97,10 @@ export const Comments = {
     return comments.results;
   },
 
-  getById: async (
-    commentId: number,
-    type: commentTypes
-  ): Promise<commentParams[]> => {
+  getById: async ({
+    commentId,
+    type,
+  }: GetByIdModelRequest): Promise<CommentParams[]> => {
     const query = `SELECT * FROM ${type} WHERE id = ?;`;
     const comment = await ((db.query(query, [
       commentId,
@@ -74,12 +108,12 @@ export const Comments = {
     return comment.results;
   },
 
-  create: async (
-    userId: number,
-    type: commentTypes,
-    title: string,
-    content: string
-  ): Promise<SqlCreateResult> => {
+  create: async ({
+    userId,
+    type,
+    title,
+    content,
+  }: CreateRequest): Promise<SqlCreateResult> => {
     const query = `INSERT INTO ${type} (title, content, userid) VALUES (?, ?, ?);`;
     const newComment = (db.query(query, [
       title,
@@ -89,12 +123,12 @@ export const Comments = {
     return newComment;
   },
 
-  modifyContent: async (
-    type: commentTypes,
-    title: string,
-    newContent: string,
-    commentId: number
-  ): Promise<SqlCreateResult> => {
+  modifyContent: async ({
+    type,
+    title,
+    newContent,
+    commentId,
+  }: ModifyRequest): Promise<SqlCreateResult> => {
     const query = `UPDATE ${type} SET title = ?, content = ? WHERE id = ?;`;
     const updatedComment = await ((db.query(query, [
       title,
@@ -104,10 +138,10 @@ export const Comments = {
     return updatedComment;
   },
 
-  deleteComment: async (
-    type: commentTypes,
-    commentId: number
-  ): Promise<SqlDeleteResult> => {
+  deleteComment: async ({
+    type,
+    commentId,
+  }: GetByIdModelRequest): Promise<SqlDeleteResult> => {
     const query = `DELETE FROM ${type} WHERE id = ?;`;
     const deleteComment = await ((db.query(query, [
       commentId,

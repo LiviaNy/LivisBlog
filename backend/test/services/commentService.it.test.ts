@@ -9,12 +9,42 @@ import {
 jest.mock("../../src/models/commentsModels");
 
 const mockComments = [
-  mockHospitalComment(1, "valami title", "valami content", 1),
-  mockHospitalComment(2, "valami title", "valami content", 1),
-  mockHospitalComment(3, "valami title", "valami content", 1),
-  mockRoomComment(1, "valami title", "valami content", 1),
-  mockNurseryComment(1, "valami title", "valami content", 1),
-  mockNurseryComment(2, "valami title", "valami content", 1),
+  mockHospitalComment({
+    commentId: 1,
+    title: "valami title",
+    content: "valami content",
+    userId: 1,
+  }),
+  mockHospitalComment({
+    commentId: 2,
+    title: "valami title",
+    content: "valami content",
+    userId: 1,
+  }),
+  mockHospitalComment({
+    commentId: 3,
+    title: "valami title",
+    content: "valami content",
+    userId: 1,
+  }),
+  mockRoomComment({
+    commentId: 1,
+    title: "valami title",
+    content: "valami content",
+    userId: 1,
+  }),
+  mockNurseryComment({
+    commentId: 1,
+    title: "valami title",
+    content: "valami content",
+    userId: 1,
+  }),
+  mockNurseryComment({
+    commentId: 2,
+    title: "valami title",
+    content: "valami content",
+    userId: 1,
+  }),
 ];
 
 describe("comment service IT tests", () => {
@@ -30,7 +60,7 @@ describe("comment service IT tests", () => {
         Promise.resolve([mockComments[4], mockComments[5]])
       );
 
-      const result = await commentsService.getAllComments(1);
+      const result = await commentsService.getAllComments({ userId: 1 });
 
       expect(result).not.toBeNull();
       expect(Array.isArray(result.comments)).toBeTruthy();
@@ -43,12 +73,12 @@ describe("comment service IT tests", () => {
         Promise.resolve({ results: { insertId: 1 }, fields: [] })
       );
 
-      const result = await commentsService.createComment(
-        1,
-        commentTypes.room,
-        "valami title",
-        "valami content"
-      );
+      const result = await commentsService.createComment({
+        userId: 1,
+        type: commentTypes.room,
+        title: "valami title",
+        content: "valami content",
+      });
 
       expect(result).not.toBeUndefined();
       expect(result.id).toBe(1);
@@ -61,12 +91,12 @@ describe("comment service IT tests", () => {
         Promise.resolve({ results: { insertId: 1 }, fields: [] })
       );
 
-      const result = await commentsService.modifyComment(
-        commentTypes.nursery,
-        "valami title",
-        "valami content",
-        1
-      );
+      const result = await commentsService.modifyComment({
+        type: commentTypes.nursery,
+        title: "valami title",
+        newContent: "valami content",
+        commentId: 1,
+      });
 
       expect(result).not.toBeNull();
       expect(result.type).toBe(commentTypes.nursery);
