@@ -55,8 +55,29 @@ const createComment = async (
   };
 };
 
+const modifyComment = async (
+  type: commentTypes,
+  title: string,
+  newContent: string,
+  commentId: number
+): Promise<commentParams> => {
+  if (!type) throw errorService.badRequestError("Missintparameter(s): type");
+  if (!title) throw errorService.badRequestError("Missintparameter(s): title");
+  if (!newContent)
+    throw errorService.badRequestError("Missintparameter(s): content");
+  if (!commentId)
+    throw errorService.badRequestError("Missintparameter(s): commentId");
+  await Comments.modifyContent(type, title, newContent, commentId);
+  return {
+    id: commentId,
+    title,
+    content: newContent,
+  };
+};
+
 export const commentsService = {
   getAllComments,
   getCommentById,
   createComment,
+  modifyComment,
 };

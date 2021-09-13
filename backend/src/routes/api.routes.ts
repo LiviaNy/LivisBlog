@@ -17,7 +17,7 @@ router.use(authenticateRequest);
 router.get("/comment", commentsController.getAll);
 router.get("/comment/:commentId", commentsController.getById);
 router.post("/comment", commentsController.create);
-router.put("/comment");
-router.delete("/comment");
+router.put("/comment/:commentId", commentsController.modify);
+router.delete("/comment/:commentId", commentsController.delete);
 
 export default router;

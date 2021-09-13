@@ -45,11 +45,18 @@ export const commentsController = {
     res.status(200).json(newComment);
   },
 
-  async modify(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> {},
+  async modify(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const type = req.body.type;
+    const title = req.body.title;
+    const newContent = req.body.content;
+    const commentId = Number(req.params.commentId);
+    const changedComment = await commentsService
+      .modifyComment(type, title, newContent, commentId)
+      .catch((error: any) => {
+        next(new HttpException(error.errorStatus, error.errorMessage.message));
+      });
+    res.status(200).json(changedComment);
+  },
 
   async delete(
     req: Request,

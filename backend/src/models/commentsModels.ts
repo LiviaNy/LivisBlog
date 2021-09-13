@@ -78,4 +78,19 @@ export const Comments = {
     ]) as unknown) as SqlCreateResult;
     return newComment;
   },
+
+  modifyContent: async (
+    type: commentTypes,
+    title: string,
+    newContent: string,
+    commentId: number
+  ): Promise<SqlCreateResult> => {
+    const query = `UPDATE ${type} SET title = ?, content = ? WHERE id = ?`;
+    const updatedComment = await ((db.query(query, [
+      title,
+      newContent,
+      commentId,
+    ]) as unknown) as SqlCreateResult);
+    return updatedComment;
+  },
 };
