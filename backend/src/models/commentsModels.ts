@@ -6,22 +6,40 @@ export enum commentTypes {
   "nursery" = "nursery",
 }
 
-export interface GetAllRequest {
-  userId: number;
-  type?: commentTypes;
+export interface SqlResultComments {
+  results: [];
+  fields: [];
 }
 
-export interface SqlResultComments {
-  results: {};
-  fields: {};
+export interface commentParams {
+  id: number;
+  title: string;
+  content: string;
+  userid?: number;
 }
 
 export const Comments = {
-  getComments: async ({ userId, type }: GetAllRequest): Promise<any> => {
-    const query = `SELECT * FROM ${type} WHERE userid = ?`;
+  getCommentsFromHospital: async (userId: number): Promise<any> => {
+    const query = `SELECT * FROM hospital WHERE userid = ?`;
     const comments = await ((db.query(query, [
       userId,
     ]) as unknown) as SqlResultComments);
-    return comments;
+    return comments.results;
+  },
+
+  getCommentsFromRoom: async (userId: number): Promise<any> => {
+    const query = `SELECT * FROM room WHERE userid = ?`;
+    const comments = await ((db.query(query, [
+      userId,
+    ]) as unknown) as SqlResultComments);
+    return comments.results;
+  },
+
+  getCommentsFromNursery: async (userId: number): Promise<any> => {
+    const query = `SELECT * FROM nursery WHERE userid = ?`;
+    const comments = await ((db.query(query, [
+      userId,
+    ]) as unknown) as SqlResultComments);
+    return comments.results;
   },
 };

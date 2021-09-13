@@ -41,7 +41,7 @@ export const authenticateRequest = function (
       }
       next();
     });
-  } catch (error) {
+  } catch (error:any) {
     next(new HttpException(error.errorStatus, error.errorMessage));
   }
 };

@@ -26,7 +26,7 @@ exports.up = function (db, callback) {
         type: "int",
         notNull: true,
         foreignKey: {
-          name: "users_livisblog_fk",
+          name: "room_user_is_livisblog_fk",
           table: "users",
           mapping: "id",
           rules: {
