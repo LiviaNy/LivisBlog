@@ -1,3 +1,4 @@
+import { create } from "domain";
 import { Request, Response, NextFunction } from "express";
 import HttpException from "../exceptions/httpException";
 import { commentsService } from "../services/commentsService";
@@ -30,4 +31,29 @@ export const commentsController = {
       });
     if (comment) res.status(200).json(comment);
   },
+
+  async create(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const userId = req.user.userId;
+    const type = req.body.type;
+    const title = req.body.title;
+    const content = req.body.content;
+    const newComment = await commentsService
+      .createComment(userId, type, title, content)
+      .catch((error) => {
+        next(new HttpException(error.errorStatus, error.errorMessage.message));
+      });
+    res.status(200).json(newComment);
+  },
+
+  async modify(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {},
+
+  async delete(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {},
 };

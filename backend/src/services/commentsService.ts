@@ -30,15 +30,33 @@ const getCommentById = async (
   commentId: number,
   type: commentTypes,
   userId: number
-): Promise<any> => {
+): Promise<commentParams> => {
   const comment = await Comments.getById(commentId, type);
   if (!comment[0]) throw errorService.notFoundError("Id not found.");
   if (comment[0].userid !== userId)
     throw errorService.forbiddenError("Forbidden action.");
-  return comment;
+  return comment[0];
+};
+
+const createComment = async (
+  userId: number,
+  type: commentTypes,
+  title: string,
+  content: string
+): Promise<commentParams> => {
+  if (!type) throw errorService.badRequestError("Missintparameter(s): type");
+  if (!title) throw errorService.badRequestError("Missintparameter(s): title");
+  if (!content)
+    throw errorService.badRequestError("Missintparameter(s): content");
+  return {
+    id: (await Comments.create(userId, type, title, content)).results.insertId,
+    title,
+    content,
+  };
 };
 
 export const commentsService = {
   getAllComments,
   getCommentById,
+  createComment,
 };
