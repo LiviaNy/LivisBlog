@@ -18,6 +18,9 @@ const LoginForm: any = () => {
 
   const login = async (e: SyntheticEvent) => {
     e.preventDefault();
+    setErrorMessage("");
+    setUserError("");
+    setPasswordError("");
     if (!username || password.length < 8) {
       setErrorMessage("Username and password are required.");
       return;

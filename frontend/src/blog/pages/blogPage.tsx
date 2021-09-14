@@ -10,11 +10,7 @@ import "./blogPage.scss";
 import HospitalPage from "./HospitalPage";
 import RoomPage from "./RoomPage";
 import NurseryPage from "./NurseryPage";
-import {
-  Comment,
-  commentApiResponse,
-} from "../../comment/models/commmentModels";
-import { get } from "../../services/apiService";
+
 
 type Token = User;
 

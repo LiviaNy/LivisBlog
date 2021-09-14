@@ -1,0 +1,38 @@
+@import "../../common/colors.scss";
+
+.create-comment > p {
+  font-size: 50px;
+  margin: 50px 0 0;
+}
+
+.error {
+  color: $error-color;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form > select {
+  font-size: 30px;
+  margin: 0 0 30px;
+}
+
+#value {
+  display: none;
+}
+
+select {
+  color: $font-color;
+  background-color: $input-bg-color;
+  text-shadow: 1px 1px 0 rgb(135, 70, 162);
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+}

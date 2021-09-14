@@ -1,14 +1,13 @@
 import { apiInterface, apiServiceOutput, URI } from "./models/apiModels";
 
-export const token: string = localStorage.getItem("token") || "";
+export const token: string | null = localStorage.getItem("token") || null;
 async function apiCall(props: apiInterface): Promise<apiServiceOutput> {
   const fetchURL = process.env.REACT_APP_BACKEND_BASEURL + props.URI;
-  const fetchHeaders = new Headers();
-  fetchHeaders.append("Content-Type", "application/json");
-  fetchHeaders.append("Accept", "application/json");
-  if (props.isAuthorized) {
-    fetchHeaders.append("Authorization", `Bearer: ${token}`);
-  }
+  const fetchHeaders = new Headers({
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    Authorization: `Bearer: ${token}`,
+  });
 
   const fetchParams: RequestInit = {
     method: props.method,
@@ -18,7 +17,7 @@ async function apiCall(props: apiInterface): Promise<apiServiceOutput> {
 
   const response = await fetch(fetchURL, { ...fetchParams });
   if (response.status === 401) {
-    localStorage.removeItem("token");
+    // localStorage.removeItem("token");
     return Promise.reject("Invalid token.");
   }
 
