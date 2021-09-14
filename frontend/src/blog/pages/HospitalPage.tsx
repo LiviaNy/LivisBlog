@@ -1,16 +1,17 @@
 import { FC } from "react";
 import { blogImageIconPath } from "../../common/setings";
+import "./subPages.scss";
 
 interface HospitalPageProps {}
 
 const HospitalPage: FC<HospitalPageProps> = () => {
   return (
-    <div className="hospital-page">
+    <div className="subpage">
       <h1>
         It is the final count down!!! - What to put in your Hospital Bag?!?!
       </h1>
       <div className="content">
-        <p>
+        <h2>
           Packing your hospital bag marks an exciting time in your pregnancy.
           It’s a good idea to have it ready two weeks before your due date –
           just in case your baby makes an early appearance. If you’re not sure
@@ -19,10 +20,10 @@ const HospitalPage: FC<HospitalPageProps> = () => {
           hurry. To ensure you’ve got everything you’ll need, see my list of
           hospital bag must-haves, recommended by midwives, pregnancy advisors
           and mum bloggers.
-        </p>
+        </h2>
+        <img src={`${blogImageIconPath}/mom.png`} alt="mom" />
+        <p>For You</p>
         <ul>
-          <img src={`${blogImageIconPath}/mom.png`} alt="mom" />
-          <p>For You</p>
           <li>Birth plan and maternity notes</li>
           <li>Socks or slippers</li>
           <li>Nursing bras and breast pads</li>
@@ -34,9 +35,9 @@ const HospitalPage: FC<HospitalPageProps> = () => {
           <li>Dark-coloured or old towels</li>
           <li>Flip flops</li>
         </ul>
+        <img src={`${blogImageIconPath}/baby.png`} alt="baby" />
+        <p>For baby</p>
         <ul>
-          <img src={`${blogImageIconPath}/baby.png`} alt="baby" />
-          <p>For baby</p>
           <li>Baby vests and sleep suits</li>
           <li>Scratch mitts and socks</li>
           <li>Baby hat</li>
@@ -48,9 +49,9 @@ const HospitalPage: FC<HospitalPageProps> = () => {
           <li>Nappy bag</li>
           <li>Cotton wool</li>
         </ul>
+        <img src={`${blogImageIconPath}/dad.png`} alt="dad" />
+        <p>For partner</p>
         <ul>
-          <img src={`${blogImageIconPath}/dad.png`} alt="dad" />
-          <p>For partner</p>
           <li>Money for car park</li>
           <li>Mobile phone and charger</li>
           <li>Toiletries</li>

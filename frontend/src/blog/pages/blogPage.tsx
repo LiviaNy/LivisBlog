@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import jwt from "jsonwebtoken";
 import { userActions } from "../../users/actions/userAction";
@@ -24,19 +24,6 @@ const BlogPage = () => {
     const token: string = localStorage.getItem("token") || "";
     if (!token) return;
     const tokenData: Token = jwt.decode(token) as unknown as Token;
-    async function getComments() {
-      try {
-        const comments: Comment[] =
-          (
-            (await get("/comment", false))
-              .parsedBody as unknown as commentApiResponse
-          ).comments || [];
-        } catch (e) {
-          console.log("No data received");
-        }
-      }
-      
-      console.log(getComments());
 
     dispatch(
       userActions.login({
