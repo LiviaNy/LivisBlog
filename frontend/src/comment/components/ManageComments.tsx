@@ -1,28 +1,27 @@
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import { Comment } from "../models/commmentModels";
-import "./commentHolder.scss";
 import Comments from "./Comments";
 
-interface CommentHolderProps {
-  type: string;
-}
+interface ManageCommentsProps {}
 
-const CommentsHolder: FC<CommentHolderProps> = (type) => {
+const ManageComments: FC<ManageCommentsProps> = () => {
   const comments: Comment[] = useSelector<any, any>(
     (state) => state.commentReducer.comments
   );
-  const filtered: Comment[] = comments.filter((x) => x.type === type.type);
+  const userId = useSelector<any, any>((state) => state.userReducer.userId);
+
+  const filtered = comments.filter((x) => x.id === userId);
   const props = {
     comments: filtered,
-    isModifier: false,
+    isModifier: true,
   };
+
   return (
     <div className="comments">
-      <p>read comments below</p>
       <Comments comments={props} />
     </div>
   );
 };
 
-export default CommentsHolder;
+export default ManageComments;

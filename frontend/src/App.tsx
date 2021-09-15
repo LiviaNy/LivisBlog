@@ -8,6 +8,7 @@ import BlogPage from "./blog/pages/blogPage";
 import { backgroundImageUrl } from "./common/setings";
 import { createBrowserHistory } from "history";
 import CreateComment from "./comment/pages/createComment";
+import ManageComments from "./comment/components/ManageComments";
 
 export const history = createBrowserHistory();
 
@@ -36,6 +37,9 @@ function App() {
             </Route>
             <Route path="/comment">
               <CreateComment />
+            </Route>
+            <Route path="/modify">
+              <ManageComments />
             </Route>
           </Switch>
         </div>

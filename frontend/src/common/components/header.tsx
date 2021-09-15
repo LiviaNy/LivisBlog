@@ -22,7 +22,9 @@ const Header: FC<any> = () => {
   const headerNavLinks: NavData[] = [
     { access: "visitor", navLabel: "Login", navPath: "/login" },
     { access: "visitor", navLabel: "Register", navPath: "/register" },
+    { access: "user", navLabel: "Blogs", navPath: "/blog" },
     { access: "user", navLabel: "Add comment", navPath: "/comment" },
+    { access: "user", navLabel: "Manage comments", navPath: "/modify" },
     { access: "user", navLabel: "Logout", navPath: "/login", onClick: logout },
   ];
 

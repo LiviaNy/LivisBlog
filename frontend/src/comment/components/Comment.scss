@@ -1,0 +1,11 @@
+@import "../../common/colors.scss";
+
+.modifier {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modifier > button {
+  margin: 5px;
+}
