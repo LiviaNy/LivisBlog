@@ -10,11 +10,19 @@ import "./blogPage.scss";
 import HospitalPage from "./HospitalPage";
 import RoomPage from "./RoomPage";
 import NurseryPage from "./NurseryPage";
+import { get } from "../../services/apiService";
+import {
+  Comment,
+  commentApiResponse,
+} from "../../comment/models/commmentModels";
+import { fetchCommentList } from "../../comment/actions/commentAction";
+import { store } from "../../store";
 
 type Token = User;
 
 const BlogPage = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     const token: string = localStorage.getItem("token") || "";
     if (!token) return;
@@ -26,7 +34,23 @@ const BlogPage = () => {
         username: tokenData.username,
       })
     );
-  }, []);
+
+    async function getCommentsArray(): Promise<Comment[] | undefined> {
+      try {
+        const comments: any =
+          (
+            (await get("/comment", false))
+              .parsedBody as unknown as commentApiResponse
+          ).comments || [];
+        console.log(comments);
+        store.dispatch(fetchCommentList({ comments }));
+        return comments;
+      } catch (error: any) {
+        console.log("No data received");
+      }
+    }
+    getCommentsArray();
+  }, [dispatch]);
 
   return (
     <div className="blog-page">

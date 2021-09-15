@@ -1,7 +1,6 @@
 import { Response, NextFunction, Request } from "express";
 import jwt from "jsonwebtoken";
 import HttpException from "../exceptions/httpException";
-
 import { UserDetails } from "../models/Request";
 import { errorService } from "../services";
 
@@ -16,7 +15,6 @@ export const authenticateRequest = function (
 
   try {
     if (!token || token === null) {
-      console.log(token);
       throw errorService.unauthorizedError("Invalid token.");
     }
 

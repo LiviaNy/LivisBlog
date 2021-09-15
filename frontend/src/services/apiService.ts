@@ -8,16 +8,19 @@ async function apiCall(props: apiInterface): Promise<apiServiceOutput> {
     Accept: "application/json",
     Authorization: `Bearer: ${token}`,
   });
+  console.log("tokenrun");
 
   const fetchParams: RequestInit = {
     method: props.method,
     headers: fetchHeaders,
   };
-  if (props.body) fetchParams.body = JSON.stringify(props.body);
+  if (props.body) {
+    fetchParams.body = JSON.stringify(props.body);
+  }
 
   const response = await fetch(fetchURL, { ...fetchParams });
   if (response.status === 401) {
-    localStorage.removeItem("token");
+    // localStorage.removeItem("token");
     return Promise.reject("Invalid token.");
   }
 

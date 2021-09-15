@@ -31,7 +31,6 @@ const Header: FC<any> = () => {
       (isUserLoggedIn && navData.access === "user") ||
       (!isUserLoggedIn && navData.access === "visitor")
   );
-  console.log(showMenu);
 
   return (
     <div className="header">

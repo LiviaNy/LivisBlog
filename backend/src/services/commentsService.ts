@@ -34,6 +34,41 @@ const getAllComments = async ({
   };
 };
 
+const getHospitalComments = async ({
+  userId,
+}: GetAllRequest): Promise<GetAllServiceResult> => {
+  const hospitalComments: CommentParams[] = (
+    await Comments.getCommentsFromHospital({ userId })
+  ).map(fillCommentValues);
+
+  return {
+    comments: [...hospitalComments],
+  };
+};
+
+const getRoomComments = async ({
+  userId,
+}: GetAllRequest): Promise<GetAllServiceResult> => {
+  const rooomCommenst = (await Comments.getCommentsFromRoom({ userId })).map(
+    fillCommentValues
+  );
+
+  return {
+    comments: [...rooomCommenst],
+  };
+};
+
+const getNurseryComments = async ({
+  userId,
+}: GetAllRequest): Promise<GetAllServiceResult> => {
+  const nurseryComments = (
+    await Comments.getCommentsFromNursery({ userId })
+  ).map(fillCommentValues);
+  return {
+    comments: [...nurseryComments],
+  };
+};
+
 const getCommentById = async ({
   commentId,
   type,
@@ -105,4 +140,7 @@ export const commentsService = {
   createComment,
   modifyComment,
   deleteComment,
+  getHospitalComments,
+  getRoomComments,
+  getNurseryComments,
 };

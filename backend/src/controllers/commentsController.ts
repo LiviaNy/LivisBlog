@@ -15,6 +15,54 @@ export const commentsController = {
     }
   },
 
+  async getHospital(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    const userId = req.user.userId;
+    const comments = await commentsService
+      .getHospitalComments({ userId })
+      .catch((error: any) => {
+        next(new HttpException(error.errorStatus, error.errorMessage.message));
+      });
+    if (comments) {
+      res.status(200).json(comments);
+    }
+  },
+
+  async getRoom(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    const userId = req.user.userId;
+    const comments = await commentsService
+      .getRoomComments({ userId })
+      .catch((error: any) => {
+        next(new HttpException(error.errorStatus, error.errorMessage.message));
+      });
+    if (comments) {
+      res.status(200).json(comments);
+    }
+  },
+
+  async getNursery(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    const userId = req.user.userId;
+    const comments = await commentsService
+      .getNurseryComments({ userId })
+      .catch((error: any) => {
+        next(new HttpException(error.errorStatus, error.errorMessage.message));
+      });
+    if (comments) {
+      res.status(200).json(comments);
+    }
+  },
+
   async getById(
     req: Request,
     res: Response,

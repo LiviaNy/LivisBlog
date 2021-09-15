@@ -1,9 +1,13 @@
+import { commentApiResponse } from "../models/commmentModels";
+
 const intialCommentList = { comments: [] };
-export const commentReducer = (state: any = intialCommentList, action: any) => {
+export const commentReducer = (
+  state: commentApiResponse = intialCommentList,
+  action: any
+) => {
   switch (action.type) {
     case "FETCH_COMMENT_LIST": {
-      const newState = action.payload;
-
+      const newState = { comments: [...action.payload.comments] };
       return newState;
     }
     default:

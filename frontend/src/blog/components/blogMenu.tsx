@@ -2,9 +2,6 @@ import { blogImageIconPath, blogPath } from "../../common/setings";
 import { Label, MenuElement } from "../models/blogMenuModel";
 import MenuItem from "./menuItem";
 import "./blogMenu.scss";
-import { useEffect } from "react";
-import { get } from "../../services/apiService";
-import { commentApiResponse } from "../../comment/models/commmentModels";
 
 const BlogMenu = () => {
   const label: Label = {

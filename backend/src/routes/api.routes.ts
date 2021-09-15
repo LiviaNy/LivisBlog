@@ -15,6 +15,9 @@ router.post("/register", userController.addUser);
 router.use(authenticateRequest);
 
 router.get("/comment", commentsController.getAll);
+router.get("/comment/hospital", commentsController.getHospital);
+router.get("/comment/room", commentsController.getRoom);
+router.get("/comment/nursery", commentsController.getNursery);
 router.get("/comment/:commentId", commentsController.getById);
 router.post("/comment", commentsController.create);
 router.put("/comment/:commentId", commentsController.modify);
