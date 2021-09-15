@@ -6,7 +6,6 @@ import LoginPage from "./users/pages/login/login";
 import RegisterPage from "./users/pages/register/register";
 import BlogPage from "./blog/pages/blogPage";
 import { backgroundImageUrl } from "./common/setings";
-import { useHistory } from "react-router";
 import { createBrowserHistory } from "history";
 import CreateComment from "./comment/pages/createComment";
 

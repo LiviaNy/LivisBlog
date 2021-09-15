@@ -13,9 +13,12 @@ export const authenticateRequest = function (
   const authHeader = req.headers.authorization;
   const token: string | null | undefined =
     authHeader && authHeader.split(" ")[1];
+
   try {
-    if (!token || token === null)
+    if (!token || token === null) {
+      console.log(token);
       throw errorService.unauthorizedError("Invalid token.");
+    }
 
     jwt.verify(token, process.env.JWT_SECRETKEY as string, function (
       err,

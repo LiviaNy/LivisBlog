@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import jwt from "jsonwebtoken";
 import { userActions } from "../../users/actions/userAction";
@@ -10,7 +10,6 @@ import "./blogPage.scss";
 import HospitalPage from "./HospitalPage";
 import RoomPage from "./RoomPage";
 import NurseryPage from "./NurseryPage";
-
 
 type Token = User;
 
