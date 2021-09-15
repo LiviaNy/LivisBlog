@@ -42,7 +42,6 @@ const BlogPage = () => {
             (await get("/comment", false))
               .parsedBody as unknown as commentApiResponse
           ).comments || [];
-        console.log(comments);
         store.dispatch(fetchCommentList({ comments }));
         return comments;
       } catch (error: any) {

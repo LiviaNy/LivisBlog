@@ -1,4 +1,5 @@
 import { FC } from "react";
+import CommentsHolder from "../../comment/components/CommentHolder";
 import { blogImageIconPath } from "../../common/setings";
 import "./subPages.scss";
 
@@ -63,6 +64,7 @@ const HospitalPage: FC<HospitalPageProps> = () => {
       </div>
       <div className="comments">
         <h1>Do not forget to share your expreience.</h1>
+        <CommentsHolder type="hospital" />
       </div>
     </div>
   );

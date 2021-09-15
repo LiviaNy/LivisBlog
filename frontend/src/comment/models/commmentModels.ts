@@ -1,6 +1,6 @@
 export interface Comment {
   id: number;
-  type: string;
+  type: typeOfComment;
   title: string;
   content: string;
 }
@@ -12,3 +12,5 @@ export interface CommentList {
 export interface commentApiResponse {
   comments: Comment[];
 }
+
+export type typeOfComment = "hospital" | "room" | "nursery";

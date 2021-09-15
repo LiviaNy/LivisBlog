@@ -1,4 +1,5 @@
 import { FC } from "react";
+import CommentsHolder from "../../comment/components/CommentHolder";
 import { blogImageIconPath } from "../../common/setings";
 import "./subPages.scss";
 
@@ -29,6 +30,7 @@ const NurseryPage: FC<NurseryPageProps> = () => {
       </div>
       <div className="comments">
         <h1>Do not forget to share your expreience.</h1>
+        <CommentsHolder type="nursery" />
       </div>
     </div>
   );
