@@ -3,6 +3,7 @@ export interface Comment {
   type: typeOfComment;
   title: string;
   content: string;
+  userid: number;
 }
 
 export interface CommentList {
@@ -14,3 +15,7 @@ export interface commentApiResponse {
 }
 
 export type typeOfComment = "hospital" | "room" | "nursery";
+
+export interface commentApiResDelete {
+  status: "successful";
+}

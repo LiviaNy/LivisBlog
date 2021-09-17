@@ -11,7 +11,7 @@ const ManageComments: FC<ManageCommentsProps> = () => {
   );
   const userId = useSelector<any, any>((state) => state.userReducer.userId);
 
-  const filtered = comments.filter((x) => x.id === userId);
+  const filtered = comments.filter((x) => x.userid === userId);
   const props = {
     comments: filtered,
     isModifier: true,
