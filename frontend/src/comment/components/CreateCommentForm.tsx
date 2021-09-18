@@ -49,7 +49,7 @@ const CreateCommentFrom: FC<CreateCommentFromProps> = () => {
     <form className="form">
       <p className="error">{errorMessage}</p>
       <select name="type" id="types" onChange={(e) => setType(e.target.value)}>
-        <option id="value" value="select" disabled>
+        <option id="value" value="select" defaultValue="Choose category">
           Please choose category
         </option>
         <option value="hospital">What to put in your Hospital Bag?</option>

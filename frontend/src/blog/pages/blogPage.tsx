@@ -22,7 +22,7 @@ type Token = User;
 
 const BlogPage = () => {
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     const token: string = localStorage.getItem("token") || "";
     if (!token) return;

@@ -43,6 +43,7 @@ const LoginForm: any = () => {
         setErrorMessage(errorMessage);
       }
     }
+    window.location.reload();
   };
 
   const validateUsername = {
@@ -53,8 +54,6 @@ const LoginForm: any = () => {
     validate: (input: string): boolean => input.length > 7,
     error: passwordError || "Password must be at least 8 characters.",
   };
-
-  
 
   return (
     <form onSubmit={login} className="from">

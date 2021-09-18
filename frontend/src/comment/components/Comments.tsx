@@ -2,7 +2,8 @@ import { FC, useState } from "react";
 import { Comment, commentApiResDelete } from "../models/commmentModels";
 import "./Comment.scss";
 import { useHistory } from "react-router-dom";
-import { del } from "../../services/apiService";
+import { del, put } from "../../services/apiService";
+import Input from "../../common/components/input";
 
 interface CommentsProps {
   comments: {
@@ -13,9 +14,24 @@ interface CommentsProps {
 
 const Comments: FC<CommentsProps> = (comments) => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
   const history = useHistory();
-  const modifyOnclick = () => {
-    history.push("/change");
+  const modifyOnclick = async (
+    title: string,
+    content: string,
+    id: number,
+    type: string
+  ) => {
+    try {
+      (await put(`/comment/${id}`, { type, title, content }))
+        .parsedBody as unknown as commentApiResDelete;
+      history.push(`/blog/${type}`);
+    } catch (error: any) {
+      console.log(error);
+      const errorMessage = error.message || error;
+      setErrorMessage(errorMessage);
+    }
   };
 
   const deleteOnClick = async (
@@ -26,9 +42,9 @@ const Comments: FC<CommentsProps> = (comments) => {
       try {
         (await del(`/comment/${id}/${type}`, {}))
           .parsedBody as unknown as commentApiResDelete;
+        history.push("/blog");
       } catch (error: any) {
         console.log(error);
-
         const errorMessage = error.message || error;
         setErrorMessage(errorMessage);
       }
@@ -39,10 +55,37 @@ const Comments: FC<CommentsProps> = (comments) => {
       {comments.comments.comments.map((x: Comment, index: number) => (
         <div key={index} id={`${x.id}`} className="comment">
           <h1>{x.title}</h1>
+          {comments.comments.isModifier ? (
+            <div className="input">
+              <Input
+                placeholder="Change title"
+                type="text"
+                onChange={setTitle}
+              />
+            </div>
+          ) : (
+            <div className="empty" />
+          )}
           <p>{x.content}</p>
           {comments.comments.isModifier ? (
+            <div>
+              <Input
+                placeholder="Change content"
+                type="text"
+                onChange={setContent}
+              />
+            </div>
+          ) : (
+            <div className="empty" />
+          )}
+          {comments.comments.isModifier ? (
             <div className="modifier">
-              <button className="modify" onClick={modifyOnclick}>
+              <button
+                className="modify"
+                onClick={() => {
+                  modifyOnclick(title, content, x.id, x.type);
+                }}
+              >
                 Modify
               </button>{" "}
               <p className="error">{errorMessage}</p>
