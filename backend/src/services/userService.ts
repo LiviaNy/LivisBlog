@@ -30,9 +30,7 @@ export const userService = {
       user.results.length === 0 ||
       !compareSync(password, user.results[0].password)
     )
-      throw errorService.unauthorizedError(
-        "Username or password is incorrect."
-      );
+      throw errorService.conflictError("Username or password is incorrect.");
     return signToken(user.results[0]);
   },
 };

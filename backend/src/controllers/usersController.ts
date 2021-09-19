@@ -12,7 +12,7 @@ export const userController = {
     const { username, password } = req.body;
     const registeredUser = await userService
       .register(username, password)
-      .catch((error:any) => {
+      .catch((error: any) => {
         next(
           new HttpException(
             error.errorStatus,
@@ -30,8 +30,13 @@ export const userController = {
     const { username, password } = req.body;
     const loginData = await userService
       .login(username, password)
-      .catch((error:any) => {
-        next(new HttpException(error.errorStatus, error.errorMessage.message));
+      .catch((error: any) => {
+        next(
+          new HttpException(
+            error.errorStatus,
+            error.errorMessage?.message || "DB error"
+          )
+        );
       });
 
     if (loginData) {
