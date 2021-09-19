@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import HttpException from "../exceptions/httpException";
+import { commentTypes } from "../models/commentsModels";
 import { commentsService } from "../services/commentsService";
 
 export const commentsController = {
@@ -106,7 +107,7 @@ export const commentsController = {
   },
 
   async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const type = req.body.type;
+    const type = req.params.type as commentTypes;
     const commentId = Number(req.params.commentId);
     const deleteComment = await commentsService
       .deleteComment({ type, commentId })

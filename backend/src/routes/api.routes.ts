@@ -21,6 +21,6 @@ router.get("/comment/nursery", commentsController.getNursery);
 router.get("/comment/:commentId", commentsController.getById);
 router.post("/comment", commentsController.create);
 router.put("/comment/:commentId", commentsController.modify);
-router.delete("/comment/:commentId", commentsController.delete);
+router.delete("/comment/:commentId/:type", commentsController.delete);
 
 export default router;

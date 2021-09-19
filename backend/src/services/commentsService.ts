@@ -12,23 +12,14 @@ import {
   ModifyRequest,
 } from "../models/commentsModels";
 
-const fillCommentValues = (comment: CommentParams): CommentParams => {
-  delete comment.userid;
-  return comment;
-};
-
 const getAllComments = async ({
   userId,
 }: GetAllRequest): Promise<GetAllServiceResult> => {
-  const hospitalComments: CommentParams[] = (
-    await Comments.getCommentsFromHospital({ userId })
-  ).map(fillCommentValues);
-  const rooomCommenst = (await Comments.getCommentsFromRoom({ userId })).map(
-    fillCommentValues
+  const hospitalComments: CommentParams[] = await Comments.getCommentsFromHospital(
+    { userId }
   );
-  const nurseryComments = (
-    await Comments.getCommentsFromNursery({ userId })
-  ).map(fillCommentValues);
+  const rooomCommenst = await Comments.getCommentsFromRoom({ userId });
+  const nurseryComments = await Comments.getCommentsFromNursery({ userId });
   return {
     comments: [...hospitalComments, ...rooomCommenst, ...nurseryComments],
   };
@@ -37,9 +28,9 @@ const getAllComments = async ({
 const getHospitalComments = async ({
   userId,
 }: GetAllRequest): Promise<GetAllServiceResult> => {
-  const hospitalComments: CommentParams[] = (
-    await Comments.getCommentsFromHospital({ userId })
-  ).map(fillCommentValues);
+  const hospitalComments: CommentParams[] = await Comments.getCommentsFromHospital(
+    { userId }
+  );
 
   return {
     comments: [...hospitalComments],
@@ -49,9 +40,7 @@ const getHospitalComments = async ({
 const getRoomComments = async ({
   userId,
 }: GetAllRequest): Promise<GetAllServiceResult> => {
-  const rooomCommenst = (await Comments.getCommentsFromRoom({ userId })).map(
-    fillCommentValues
-  );
+  const rooomCommenst = await Comments.getCommentsFromRoom({ userId });
 
   return {
     comments: [...rooomCommenst],
@@ -61,9 +50,7 @@ const getRoomComments = async ({
 const getNurseryComments = async ({
   userId,
 }: GetAllRequest): Promise<GetAllServiceResult> => {
-  const nurseryComments = (
-    await Comments.getCommentsFromNursery({ userId })
-  ).map(fillCommentValues);
+  const nurseryComments = await Comments.getCommentsFromNursery({ userId });
   return {
     comments: [...nurseryComments],
   };
