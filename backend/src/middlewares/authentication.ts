@@ -1,5 +1,6 @@
 import { Response, NextFunction, Request } from "express";
 import jwt from "jsonwebtoken";
+
 import HttpException from "../exceptions/httpException";
 import { UserDetails } from "../models/Request";
 import { errorService } from "../services";

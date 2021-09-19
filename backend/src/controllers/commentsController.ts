@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+
 import HttpException from "../exceptions/httpException";
 import { commentTypes } from "../models/commentsModels";
 import { commentsService } from "../services/commentsService";
@@ -22,7 +23,7 @@ export const commentsController = {
   ): Promise<void> {
     const userId = req.user.userId;
     const comments = await commentsService
-      .getHospitalComments({ userId })
+      .getHospitalComments()
       .catch((error: any) => {
         next(new HttpException(error.errorStatus, error.errorMessage.message));
       });
@@ -38,7 +39,7 @@ export const commentsController = {
   ): Promise<void> {
     const userId = req.user.userId;
     const comments = await commentsService
-      .getRoomComments({ userId })
+      .getRoomComments()
       .catch((error: any) => {
         next(new HttpException(error.errorStatus, error.errorMessage.message));
       });
@@ -54,7 +55,7 @@ export const commentsController = {
   ): Promise<void> {
     const userId = req.user.userId;
     const comments = await commentsService
-      .getNurseryComments({ userId })
+      .getNurseryComments()
       .catch((error: any) => {
         next(new HttpException(error.errorStatus, error.errorMessage.message));
       });
@@ -86,7 +87,7 @@ export const commentsController = {
     const content = req.body.content;
     const newComment = await commentsService
       .createComment({ userId, type, title, content })
-      .catch((error) => {
+      .catch((error: any) => {
         next(new HttpException(error.errorStatus, error.errorMessage.message));
       });
     res.status(200).json(newComment);

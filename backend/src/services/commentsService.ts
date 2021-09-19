@@ -2,10 +2,8 @@ import { errorService } from ".";
 import {
   CommentParams,
   Comments,
-  commentTypes,
   CreateRequest,
   DeleteStatus,
-  GetAllRequest,
   GetAllServiceResult,
   GetByIdModelRequest,
   GetByIdRequest,
@@ -21,29 +19,21 @@ const getAllComments = async (): Promise<GetAllServiceResult> => {
   };
 };
 
-const getHospitalComments = async ({
-  userId,
-}: GetAllRequest): Promise<GetAllServiceResult> => {
+const getHospitalComments = async (): Promise<GetAllServiceResult> => {
   const hospitalComments: CommentParams[] = await Comments.getCommentsFromHospital();
-
   return {
     comments: [...hospitalComments],
   };
 };
 
-const getRoomComments = async ({
-  userId,
-}: GetAllRequest): Promise<GetAllServiceResult> => {
+const getRoomComments = async (): Promise<GetAllServiceResult> => {
   const rooomCommenst = await Comments.getCommentsFromRoom();
-
   return {
     comments: [...rooomCommenst],
   };
 };
 
-const getNurseryComments = async ({
-  userId,
-}: GetAllRequest): Promise<GetAllServiceResult> => {
+const getNurseryComments = async (): Promise<GetAllServiceResult> => {
   const nurseryComments = await Comments.getCommentsFromNursery();
   return {
     comments: [...nurseryComments],

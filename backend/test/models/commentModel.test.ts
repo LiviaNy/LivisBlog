@@ -1,7 +1,5 @@
 import { Comments, commentTypes } from "../../src/models/commentsModels";
 import { db } from "../../src/db/connection";
-import { hostname } from "os";
-import HttpException from "../../src/exceptions/httpException";
 
 jest.mock("../../src/db/connection");
 

@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { compareSync } from "bcryptjs";
+
 import { errorService } from "./errorService";
 import { User, LoginResponse, RegistrationResponse } from "../models/User";
 

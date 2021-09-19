@@ -1,5 +1,4 @@
 import { db } from "../db/connection";
-import { errorService } from "../services/errorService";
 
 export interface User {
   id: number;

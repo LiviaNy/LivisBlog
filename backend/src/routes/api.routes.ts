@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+
 import { authenticateRequest } from "../middlewares/authentication";
 import { userController } from "../controllers";
 import { commentsController } from "../controllers/commentsController";
