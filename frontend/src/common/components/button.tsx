@@ -1,11 +1,7 @@
-import { FC, SyntheticEvent } from "react";
-import "./button.scss";
+import { FC } from "react";
 
-type ButtonType = JSX.IntrinsicElements["button"] & {
-  title: string;
-  type?: string;
-  onClick?: (e: SyntheticEvent) => void;
-};
+import "./button.scss";
+import { ButtonType } from "../models/commonModels";
 
 const Button: FC<ButtonType> = ({ title, type, onClick }) => {
   return (

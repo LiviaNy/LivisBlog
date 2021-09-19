@@ -1,14 +1,15 @@
-import { SyntheticEvent, useState } from "react";
+import { FC, SyntheticEvent, useState } from "react";
 import { useHistory } from "react-router";
 
-import Button from "../../common/components/button";
-import Input from "../../common/components/input";
-import { post } from "../../services/apiService";
-import { ApiError } from "../../services/models/apiModels";
-import { LoginResponse } from "../models/loginModels";
+import Button from "../../common/components/Button";
+import Input from "../../common/components/Input";
+import { post } from "../../common/services/apiService";
+import { ApiError } from "../../common/models/apiModels";
+import { LoginFormProps, LoginResponse } from "../models/loginModels";
+
 import "./loginForm.scss";
 
-const LoginForm: any = () => {
+const LoginForm: FC<LoginFormProps> = () => {
   const history = useHistory();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -27,15 +28,20 @@ const LoginForm: any = () => {
     }
 
     try {
-      const loginResponse = await post("/login", { username, password }, false);
-      if (!loginResponse.response.ok)
-        throw new Error((loginResponse.parsedBody as ApiError).message);
-      const token = (loginResponse.parsedBody as LoginResponse).token;
+      const loginUser = await post("/login", { username, password }, false);
+      if (!loginUser.response.ok)
+        throw new Error((loginUser.parsedBody as ApiError).message);
+      const token = await (loginUser.parsedBody as LoginResponse).token;
       localStorage.setItem("token", token);
       history.push("/blog");
     } catch (error: any) {
       const errorMessage = error.message || error;
-      if (errorMessage.toLowerCase().includes("password")) {
+      if (
+        errorMessage.toLowerCase().includes("username") &&
+        errorMessage.toLowerCase().includes("password")
+      ) {
+        setErrorMessage(errorMessage);
+      } else if (errorMessage.toLowerCase().includes("password")) {
         setPasswordError(errorMessage);
       } else if (errorMessage.toLowerCase().includes("username")) {
         setUserError(errorMessage);
@@ -43,7 +49,6 @@ const LoginForm: any = () => {
         setErrorMessage(errorMessage);
       }
     }
-    window.location.reload();
   };
 
   const validateUsername = {

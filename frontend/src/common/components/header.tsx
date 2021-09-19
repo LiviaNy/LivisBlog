@@ -1,10 +1,13 @@
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
+
 import { NavData } from "../../users/models/userModels";
+import { HeaderInteface } from "../models/commonModels";
+
 import "./header.scss";
 
-const Header: FC<any> = () => {
+const Header: FC<HeaderInteface> = () => {
   function refreshPage() {
     window.location.reload();
   }

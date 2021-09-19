@@ -1,28 +1,31 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import jwt from "jsonwebtoken";
+import { Route, Switch } from "react-router-dom";
+
 import { userActions } from "../../users/actions/userAction";
 import { User } from "../../users/models/userModels";
-import { Route, Switch } from "react-router-dom";
 import { blogPath } from "../../common/setings";
-import BlogMenu from "../components/blogMenu";
-import "./blogPage.scss";
+import BlogMenu from "../components/BlogMenu";
 import HospitalPage from "./HospitalPage";
 import RoomPage from "./RoomPage";
 import NurseryPage from "./NurseryPage";
-import { get } from "../../services/apiService";
+import { get } from "../../common/services/apiService";
 import {
   Comment,
   commentApiResponse,
+  Types,
 } from "../../comment/models/commmentModels";
-import { fetchCommentList } from "../../comment/actions/commentAction";
 import { store } from "../../store";
+import { BlogPageProps } from "../models/blogMenuModel";
+
+import "./blogPage.scss";
 
 type Token = User;
 
-const BlogPage = () => {
+const BlogPage:FC<BlogPageProps> = () => {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     const token: string = localStorage.getItem("token") || "";
     if (!token) return;
@@ -37,13 +40,16 @@ const BlogPage = () => {
 
     async function getCommentsArray(): Promise<Comment[] | undefined> {
       try {
-        const comments: any =
+        const fetchedComments: Comment[] =
           (
             (await get("/comment", false))
               .parsedBody as unknown as commentApiResponse
           ).comments || [];
-        store.dispatch(fetchCommentList({ comments }));
-        return comments;
+        store.dispatch({
+          type: Types.FETCH_COMMENT_LIST,
+          payload: { comments: fetchedComments },
+        });
+        return fetchedComments;
       } catch (error: any) {
         console.log("No data received");
       }

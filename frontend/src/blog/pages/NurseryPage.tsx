@@ -1,9 +1,10 @@
 import { FC } from "react";
+
 import CommentsHolder from "../../comment/components/CommentHolder";
 import { blogImageIconPath } from "../../common/setings";
-import "./subPages.scss";
+import { NurseryPageProps } from "../models/blogMenuModel";
 
-interface NurseryPageProps {}
+import "./subPages.scss";
 
 const NurseryPage: FC<NurseryPageProps> = () => {
   return (

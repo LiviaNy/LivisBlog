@@ -1,9 +1,10 @@
 import { FC, SyntheticEvent, useState } from "react";
 import { useHistory } from "react-router";
-import Button from "../../common/components/button";
-import Input from "../../common/components/input";
-import { post } from "../../services/apiService";
-import { ApiError } from "../../services/models/apiModels";
+
+import Button from "../../common/components/Button";
+import Input from "../../common/components/Input";
+import { post } from "../../common/services/apiService";
+import { ApiError } from "../../common/models/apiModels";
 import { RegisterFormProps } from "../models/registerModel";
 
 const RegisterForm: FC<RegisterFormProps> = () => {
@@ -16,6 +17,9 @@ const RegisterForm: FC<RegisterFormProps> = () => {
 
   const postUser = async (e: SyntheticEvent) => {
     e.preventDefault();
+    setErrorMessage("");
+    setUserError("");
+    setPasswordError("");
     if (!username || password.length < 8) {
       setErrorMessage("Username and password are required.");
       return;

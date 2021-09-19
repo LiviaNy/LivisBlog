@@ -1,9 +1,10 @@
 import { FC } from "react";
-import Title from "../../../common/components/title";
-import LoginForm from "../../components/loginForm";
-import "./login.scss";
 
-interface LoginPageProps {}
+import Title from "../../../common/components/Title";
+import LoginForm from "../../components/LoginForm";
+import { LoginPageProps } from "../../models/loginModels";
+
+import "./login.scss";
 
 export const LoginPage: FC<LoginPageProps> = () => {
   return (

@@ -1,12 +1,10 @@
 import { FC } from "react";
 import { useSelector } from "react-redux";
-import { Comment } from "../models/commmentModels";
-import "./commentHolder.scss";
+
+import { Comment, CommentHolderProps } from "../models/commmentModels";
 import Comments from "./Comments";
 
-interface CommentHolderProps {
-  type: string;
-}
+import "./commentHolder.scss";
 
 const CommentsHolder: FC<CommentHolderProps> = (type) => {
   const comments: Comment[] = useSelector<any, any>(

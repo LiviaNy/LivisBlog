@@ -1,9 +1,10 @@
 import { FC } from "react";
+
 import CommentsHolder from "../../comment/components/CommentHolder";
 import { blogImageIconPath } from "../../common/setings";
-import "./subPages.scss";
+import { HospitalPageProps } from "../models/blogMenuModel";
 
-interface HospitalPageProps {}
+import "./subPages.scss";
 
 const HospitalPage: FC<HospitalPageProps> = () => {
   return (

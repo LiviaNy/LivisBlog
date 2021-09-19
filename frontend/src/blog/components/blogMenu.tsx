@@ -1,9 +1,12 @@
+import { FC } from "react";
+
 import { blogImageIconPath, blogPath } from "../../common/setings";
-import { Label, MenuElement } from "../models/blogMenuModel";
-import MenuItem from "./menuItem";
+import { BlogMenuProps, Label, MenuElement } from "../models/blogMenuModel";
+import MenuItem from "./MenuItem";
+
 import "./blogMenu.scss";
 
-const BlogMenu = () => {
+const BlogMenu:FC<BlogMenuProps> = () => {
   const label: Label = {
     hospital: "In hospital",
     room: "In room",

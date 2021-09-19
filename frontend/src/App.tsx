@@ -1,14 +1,15 @@
-import Header from "./common/components/header";
 import { Router, Route, Switch } from "react-router-dom";
+import { createBrowserHistory } from "history";
 
-import "./App.scss";
-import LoginPage from "./users/pages/login/login";
-import RegisterPage from "./users/pages/register/register";
+import Header from "./common/components/Header";
+import LoginPage from "./users/pages/login/Login";
+import RegisterPage from "./users/pages/register/Register";
 import BlogPage from "./blog/pages/blogPage";
 import { backgroundImageUrl } from "./common/setings";
-import { createBrowserHistory } from "history";
-import CreateComment from "./comment/pages/createComment";
+import CreateComment from "./comment/pages/CreateComment";
 import ManageComments from "./comment/components/ManageComments";
+
+import "./App.scss";
 
 export const history = createBrowserHistory();
 

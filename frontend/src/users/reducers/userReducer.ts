@@ -1,10 +1,13 @@
 import StoreActionInterface from "../../store/definitions";
-import { Action, Types } from "../models/userModels";
+import { Action, Types, User } from "../models/userModels";
 
-const initialState = {};
+const initialState = {
+  userId: 0,
+  username: "",
+};
 
 export const userReducer = (
-  state = initialState,
+  state: User = initialState,
   action: StoreActionInterface<Types, Action>
 ) => {
   switch (action.type) {

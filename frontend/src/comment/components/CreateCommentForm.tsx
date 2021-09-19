@@ -1,20 +1,23 @@
 import { FC, SyntheticEvent, useState } from "react";
-import Input from "../../common/components/input";
-import Button from "../../common/components/button";
-import { post } from "../../services/apiService";
-import { ApiError } from "../../services/models/apiModels";
-import "./createCommentForm.scss";
 import { useHistory } from "react-router";
+
+import Input from "../../common/components/Input";
+import Button from "../../common/components/Button";
+import { post } from "../../common/services/apiService";
+import { ApiError, apiServiceOutput } from "../../common/models/apiModels";
+import { ApiCallBody } from "../models/commmentModels";
+
+import "./createCommentForm.scss";
 
 interface CreateCommentFromProps {}
 
 const CreateCommentFrom: FC<CreateCommentFromProps> = () => {
   const history = useHistory();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [type, setType] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const body = {
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  const [type, setType] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const body: ApiCallBody = {
     type,
     title,
     content,
@@ -22,7 +25,6 @@ const CreateCommentFrom: FC<CreateCommentFromProps> = () => {
 
   const postComment = async (e: SyntheticEvent) => {
     e.preventDefault();
-
     setErrorMessage("");
     if (title.length < 1) {
       setErrorMessage("Title is required");
@@ -37,7 +39,7 @@ const CreateCommentFrom: FC<CreateCommentFromProps> = () => {
       return;
     }
     try {
-      const newComment = await post("/comment", body, false);
+      const newComment:apiServiceOutput = await post("/comment", body, false);
       if (!newComment.response.ok)
         throw new Error((newComment.parsedBody as ApiError).message);
     } catch (error: any) {

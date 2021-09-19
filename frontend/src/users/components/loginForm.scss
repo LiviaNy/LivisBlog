@@ -4,5 +4,11 @@
   color: $error-color;
   height: 15px;
   font-size: 20px;
-  margin: 0px;
+  margin: 5px 0px;
+  height: 25px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
 }

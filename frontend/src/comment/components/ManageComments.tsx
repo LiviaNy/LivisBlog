@@ -1,17 +1,24 @@
 import { FC } from "react";
 import { useSelector } from "react-redux";
-import { Comment } from "../models/commmentModels";
+
+import { RootState } from "../../store";
+import { User, UserState } from "../../users/models/userModels";
+import { Comment } from "../../comment/models/commmentModels";
+import { CommentState, ManageCommentsProps } from "../models/commmentModels";
 import Comments from "./Comments";
 
-interface ManageCommentsProps {}
-
 const ManageComments: FC<ManageCommentsProps> = () => {
-  const comments: Comment[] = useSelector<any, any>(
-    (state) => state.commentReducer.comments
+  const comments: CommentState = useSelector<RootState, CommentState>(
+    (state) => state.commentReducer
   );
 
-  const userId = useSelector<any, any>((state) => state.userReducer.userId);
-  const filtered = comments.filter((x) => x.userid === userId);
+  const user: User = useSelector<RootState, UserState>(
+    (state) => state.userReducer
+  );
+
+  const filtered: Comment[] = comments.comments.filter(
+    (x) => x.userid === user.userId
+  );
 
   const props = {
     comments: filtered,

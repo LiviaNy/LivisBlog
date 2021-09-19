@@ -1,7 +1,7 @@
 import { FC } from "react";
-import CreateCommentForm from "../../comment/components/CreateCommentForm";
 
-interface CreateCommentProps {}
+import CreateCommentForm from "../components/CreateCommentForm";
+import { CreateCommentProps } from "../models/commmentModels";
 
 const CreateComment: FC<CreateCommentProps> = () => {
   return (

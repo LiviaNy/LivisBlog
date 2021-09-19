@@ -1,7 +1,9 @@
 import { FC } from "react";
-import Title from "../../../common/components/title";
-import RegisterForm from "../../components/registerFrom";
+
+import Title from "../../../common/components/Title";
+import RegisterForm from "../../components/RegisterFrom";
 import { RegisterFormProps } from "../../models/registerModel";
+
 import "./register.scss";
 
 export const RegisterPage: FC<RegisterFormProps> = () => {

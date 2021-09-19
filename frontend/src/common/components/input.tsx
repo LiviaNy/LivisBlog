@@ -1,16 +1,8 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import "./input.scss";
 
-interface InputProps {
-  type?: string;
-  placeholder?: string;
-  validation?: {
-    validate: (text: string) => boolean;
-    error: string;
-  };
-  onChange?: (text: string) => void;
-  defaultError?: string | undefined;
-}
+import { InputProps } from "../models/commonModels";
+
+import "./input.scss";
 
 const Input: FC<InputProps> = ({
   type,
@@ -46,6 +38,7 @@ const Input: FC<InputProps> = ({
         onChange={handleChange}
         placeholder={placeholder}
         value={text}
+        required
       />
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>

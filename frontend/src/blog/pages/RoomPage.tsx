@@ -1,9 +1,10 @@
 import { FC } from "react";
+
 import CommentsHolder from "../../comment/components/CommentHolder";
 import { blogImageIconPath } from "../../common/setings";
-import "./subPages.scss";
+import { RoomPageProps } from "../models/blogMenuModel";
 
-interface RoomPageProps {}
+import "./subPages.scss";
 
 const RoomPage: FC<RoomPageProps> = () => {
   return (

@@ -1,6 +1,8 @@
 import { FC } from "react";
+
 import { NavLink } from "react-router-dom";
 import { MenuElement } from "../models/blogMenuModel";
+
 import "./menuItem.scss";
 
 const MenuItem: FC<MenuElement> = ({ menuName, path, iconPath }) => {

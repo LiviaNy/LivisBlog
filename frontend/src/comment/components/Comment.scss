@@ -2,12 +2,10 @@
 
 .modifier {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.modifier > button {
-  margin: 5px;
+  min-width: 60%;
 }
 
 .comment {
@@ -16,11 +14,23 @@
   border: solid 2px rgb(242, 232, 214);
   background-color: rgb(242, 232, 214);
   border-radius: 10px;
-  margin: 5px;
+  margin: 5px 50px;
   padding: 10px 40px;
 }
 
 .user-input {
   margin: 0;
   text-align: center;
+}
+
+.button-holder {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.button-holder > button {
+  margin: 0;
+  margin-bottom: 50px;
 }

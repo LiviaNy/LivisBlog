@@ -1,19 +1,19 @@
 import { FC, useState } from "react";
-import { Comment, commentApiResDelete } from "../models/commmentModels";
-import "./Comment.scss";
 import { useHistory } from "react-router-dom";
-import { del, put } from "../../services/apiService";
-import Input from "../../common/components/input";
 
-interface CommentsProps {
-  comments: {
-    comments: Comment[];
-    isModifier: boolean;
-  };
-}
+import {
+  Comment,
+  commentApiResDelete,
+  CommentsProps,
+} from "../models/commmentModels";
+import { del, put } from "../../common/services/apiService";
+import Input from "../../common/components/Input";
+import { ApiError } from "../../common/models/apiModels";
+
+import "./Comment.scss";
 
 const Comments: FC<CommentsProps> = (comments) => {
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const history = useHistory();
@@ -24,8 +24,16 @@ const Comments: FC<CommentsProps> = (comments) => {
     type: string
   ) => {
     try {
-      (await put(`/comment/${id}`, { type, title, content }))
-        .parsedBody as unknown as commentApiResDelete;
+      const modifyComment = await put(`/comment/${id}`, {
+        type,
+        title,
+        content,
+      });
+
+      if (!modifyComment.response.ok) {
+        throw new Error((modifyComment.parsedBody as ApiError).message);
+      }
+
       history.push(`/blog/${type}`);
     } catch (error: any) {
       console.log(error);
@@ -80,23 +88,25 @@ const Comments: FC<CommentsProps> = (comments) => {
           )}
           {comments.comments.isModifier ? (
             <div className="modifier">
-              <button
-                className="modify"
-                onClick={() => {
-                  modifyOnclick(title, content, x.id, x.type);
-                }}
-              >
-                Modify
-              </button>{" "}
               <p className="error">{errorMessage}</p>
-              <button
-                className="delete"
-                onClick={() => {
-                  deleteOnClick(x.id, x.type);
-                }}
-              >
-                Delete
-              </button>{" "}
+              <div className="button-holder">
+                <button
+                  className="modify"
+                  onClick={() => {
+                    modifyOnclick(title, content, x.id, x.type);
+                  }}
+                >
+                  Modify
+                </button>{" "}
+                <button
+                  className="delete"
+                  onClick={() => {
+                    deleteOnClick(x.id, x.type);
+                  }}
+                >
+                  Delete
+                </button>{" "}
+              </div>
             </div>
           ) : (
             <p>--- --- ---</p>

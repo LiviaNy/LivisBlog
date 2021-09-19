@@ -9,11 +9,4 @@ export const userActions = {
     type: Types.LOGIN,
     payload: user,
   }),
-  updatePassword: (user: User, password: string) => ({
-    type: Types.UPDATE_PASSWORD,
-    payload: {
-      user,
-      password,
-    },
-  }),
 };
