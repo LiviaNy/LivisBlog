@@ -67,33 +67,21 @@ export interface ModifyRequest {
 }
 
 export const Comments = {
-  getCommentsFromHospital: async ({
-    userId,
-  }: GetAllRequest): Promise<CommentParams[]> => {
-    const query = `SELECT * FROM hospital WHERE userid = ?;`;
-    const comments = await ((db.query(query, [
-      userId,
-    ]) as unknown) as SqlResultComments);
+  getCommentsFromHospital: async (): Promise<CommentParams[]> => {
+    const query = `SELECT * FROM hospital;`;
+    const comments = await ((db.query(query) as unknown) as SqlResultComments);
     return comments.results;
   },
 
-  getCommentsFromRoom: async ({
-    userId,
-  }: GetAllRequest): Promise<CommentParams[]> => {
-    const query = `SELECT * FROM room WHERE userid = ?;`;
-    const comments = await ((db.query(query, [
-      userId,
-    ]) as unknown) as SqlResultComments);
+  getCommentsFromRoom: async (): Promise<CommentParams[]> => {
+    const query = `SELECT * FROM room;`;
+    const comments = await ((db.query(query) as unknown) as SqlResultComments);
     return comments.results;
   },
 
-  getCommentsFromNursery: async ({
-    userId,
-  }: GetAllRequest): Promise<CommentParams[]> => {
-    const query = `SELECT * FROM nursery WHERE userid = ?;`;
-    const comments = await ((db.query(query, [
-      userId,
-    ]) as unknown) as SqlResultComments);
+  getCommentsFromNursery: async (): Promise<CommentParams[]> => {
+    const query = `SELECT * FROM nursery;`;
+    const comments = await ((db.query(query) as unknown) as SqlResultComments);
     return comments.results;
   },
 

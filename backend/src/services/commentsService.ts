@@ -12,14 +12,10 @@ import {
   ModifyRequest,
 } from "../models/commentsModels";
 
-const getAllComments = async ({
-  userId,
-}: GetAllRequest): Promise<GetAllServiceResult> => {
-  const hospitalComments: CommentParams[] = await Comments.getCommentsFromHospital(
-    { userId }
-  );
-  const rooomCommenst = await Comments.getCommentsFromRoom({ userId });
-  const nurseryComments = await Comments.getCommentsFromNursery({ userId });
+const getAllComments = async (): Promise<GetAllServiceResult> => {
+  const hospitalComments: CommentParams[] = await Comments.getCommentsFromHospital();
+  const rooomCommenst = await Comments.getCommentsFromRoom();
+  const nurseryComments = await Comments.getCommentsFromNursery();
   return {
     comments: [...hospitalComments, ...rooomCommenst, ...nurseryComments],
   };
@@ -28,9 +24,7 @@ const getAllComments = async ({
 const getHospitalComments = async ({
   userId,
 }: GetAllRequest): Promise<GetAllServiceResult> => {
-  const hospitalComments: CommentParams[] = await Comments.getCommentsFromHospital(
-    { userId }
-  );
+  const hospitalComments: CommentParams[] = await Comments.getCommentsFromHospital();
 
   return {
     comments: [...hospitalComments],
@@ -40,7 +34,7 @@ const getHospitalComments = async ({
 const getRoomComments = async ({
   userId,
 }: GetAllRequest): Promise<GetAllServiceResult> => {
-  const rooomCommenst = await Comments.getCommentsFromRoom({ userId });
+  const rooomCommenst = await Comments.getCommentsFromRoom();
 
   return {
     comments: [...rooomCommenst],
@@ -50,7 +44,7 @@ const getRoomComments = async ({
 const getNurseryComments = async ({
   userId,
 }: GetAllRequest): Promise<GetAllServiceResult> => {
-  const nurseryComments = await Comments.getCommentsFromNursery({ userId });
+  const nurseryComments = await Comments.getCommentsFromNursery();
   return {
     comments: [...nurseryComments],
   };
@@ -62,7 +56,7 @@ const getCommentById = async ({
   userId,
 }: GetByIdRequest): Promise<CommentParams> => {
   const comment = await Comments.getById({ commentId, type });
-  if (!comment[0]) throw errorService.notFoundError("Id not found.");
+  if (!comment[0]) throw errorService.notFoundError("Comment not found.");
   if (comment[0].userid !== userId)
     throw errorService.forbiddenError("Forbidden action.");
   return comment[0];

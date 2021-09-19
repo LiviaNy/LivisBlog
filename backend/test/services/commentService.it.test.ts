@@ -60,7 +60,7 @@ describe("comment service IT tests", () => {
         Promise.resolve([mockComments[4], mockComments[5]])
       );
 
-      const result = await commentsService.getAllComments({ userId: 1 });
+      const result = await commentsService.getAllComments();
 
       expect(result).not.toBeNull();
       expect(Array.isArray(result.comments)).toBeTruthy();
