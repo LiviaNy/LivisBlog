@@ -37,7 +37,7 @@ const Header: FC<any> = () => {
   return (
     <div className="header">
       <h1 className="header-title">
-        <NavLink to="/">{pageTitle}</NavLink>
+        <NavLink to="/blog">{pageTitle}</NavLink>
       </h1>
       <ul className="header-navigation">
         {showMenu.map((x, index) => (

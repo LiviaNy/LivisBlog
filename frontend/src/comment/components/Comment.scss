@@ -9,3 +9,18 @@
 .modifier > button {
   margin: 5px;
 }
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  border: solid 2px rgb(242, 232, 214);
+  background-color: rgb(242, 232, 214);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px 40px;
+}
+
+.user-input {
+  margin: 0;
+  text-align: center;
+}
